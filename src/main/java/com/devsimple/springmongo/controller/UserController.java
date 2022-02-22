@@ -1,5 +1,6 @@
 package com.devsimple.springmongo.controller;
 
+import com.devsimple.springmongo.Dto.UserDTO;
 import com.devsimple.springmongo.model.User;
 import com.devsimple.springmongo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -22,9 +24,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDTO = list
+                .stream()
+                .map(x -> new UserDTO(x))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
 
     }
 }
