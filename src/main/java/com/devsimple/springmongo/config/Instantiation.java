@@ -1,5 +1,6 @@
 package com.devsimple.springmongo.config;
 
+import com.devsimple.springmongo.Dto.AuthorDTO;
 import com.devsimple.springmongo.model.Post;
 import com.devsimple.springmongo.model.User;
 import com.devsimple.springmongo.repository.PostRepository;
@@ -33,10 +34,12 @@ public class Instantiation implements CommandLineRunner {
         User sheylane = new User(null, "sheylane Sousa", "sheylane@gmail.com");
         User gustavo = new User(null, "Gustavo Henrique", "gustavo@gmail.com");
 
-        Post post1 = new Post(null, "Indo passear", sdf.parse("22/02/2022"), "Tô indo ali para Fortaleza", antonio);
-        Post post2 = new Post(null, "Cheguei em Fortaleza", sdf.parse("23/02/2022"), "Graças a Deus cheguei com segurança!", antonio);
+        userRepository.saveAll(Arrays.asList(antonio, gustavo, sheylane));
+        
+        Post post1 = new Post(null, "Indo passear", sdf.parse("22/02/2022"), "Tô indo ali para Fortaleza", new AuthorDTO(antonio));
+        Post post2 = new Post(null, "Cheguei em Fortaleza", sdf.parse("23/02/2022"), "Graças a Deus cheguei com segurança!", new AuthorDTO(antonio));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
-        userRepository.saveAll(Arrays.asList(antonio, gustavo, sheylane));
+
     }
 }
