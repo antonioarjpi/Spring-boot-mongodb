@@ -1,6 +1,7 @@
 package com.devsimple.springmongo.controller;
 
 import com.devsimple.springmongo.Dto.UserDTO;
+import com.devsimple.springmongo.model.Post;
 import com.devsimple.springmongo.model.User;
 import com.devsimple.springmongo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +36,12 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@PathVariable String id){
         User user = userService.findById(id);
         return ResponseEntity.ok().body(new UserDTO(user));
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User user = userService.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 
     @PostMapping

@@ -7,7 +7,6 @@ import com.devsimple.springmongo.repository.PostRepository;
 import com.devsimple.springmongo.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,11 +34,14 @@ public class Instantiation implements CommandLineRunner {
         User gustavo = new User(null, "Gustavo Henrique", "gustavo@gmail.com");
 
         userRepository.saveAll(Arrays.asList(antonio, gustavo, sheylane));
-        
+
         Post post1 = new Post(null, "Indo passear", sdf.parse("22/02/2022"), "Tô indo ali para Fortaleza", new AuthorDTO(antonio));
         Post post2 = new Post(null, "Cheguei em Fortaleza", sdf.parse("23/02/2022"), "Graças a Deus cheguei com segurança!", new AuthorDTO(antonio));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
+
+        antonio.getPosts().addAll(Arrays.asList(post1, post2));
+        userRepository.save(antonio);
 
     }
 }
