@@ -1,5 +1,6 @@
 package com.devsimple.springmongo.service;
 
+import com.devsimple.springmongo.Dto.UserDTO;
 import com.devsimple.springmongo.model.User;
 import com.devsimple.springmongo.repository.UserRepository;
 import com.devsimple.springmongo.service.exception.ObjectNotFoundException;
@@ -24,5 +25,13 @@ public class UserService {
     public User findById(String id){
         Optional<User> user = userRepository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado! "));
+    }
+
+    public User insert(User user){
+        return userRepository.insert(user);
+    }
+
+    public User fromDTO(UserDTO userDTO){
+        return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
     }
 }
