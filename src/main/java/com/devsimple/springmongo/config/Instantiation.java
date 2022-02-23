@@ -1,6 +1,7 @@
 package com.devsimple.springmongo.config;
 
 import com.devsimple.springmongo.Dto.AuthorDTO;
+import com.devsimple.springmongo.Dto.CommentDTO;
 import com.devsimple.springmongo.model.Post;
 import com.devsimple.springmongo.model.User;
 import com.devsimple.springmongo.repository.PostRepository;
@@ -37,6 +38,14 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null, "Indo passear", sdf.parse("22/02/2022"), "Tô indo ali para Fortaleza", new AuthorDTO(antonio));
         Post post2 = new Post(null, "Cheguei em Fortaleza", sdf.parse("23/02/2022"), "Graças a Deus cheguei com segurança!", new AuthorDTO(antonio));
+
+        CommentDTO c1 = new CommentDTO("Boa viagem, amigo", sdf.parse("22/02/2022"), new AuthorDTO(sheylane));
+        CommentDTO c2 = new CommentDTO("Vai com Deus!", sdf.parse("22/02/2022"), new AuthorDTO(gustavo));
+        CommentDTO c3 = new CommentDTO("Volte logo", sdf.parse("22/02/2022"), new AuthorDTO(sheylane));
+
+        post1.getComments().addAll(Arrays.asList(c1, c3));
+        post2.getComments().addAll(Arrays.asList(c2));
+
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 
